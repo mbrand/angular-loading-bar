@@ -1,8 +1,9 @@
 // Karma configuration
 // Generated on Sun Sep 15 2013 20:18:09 GMT-0400 (EDT)
 
-module.exports = function(config) {
-  config.set({
+module.exports = function ( config )
+{
+  config.set( {
 
     // base path, that will be used to resolve files and exclude
     basePath: '',
@@ -14,18 +15,16 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      '../bower_components/angular-1.3/angular.js',
-      '../bower_components/angular-animate-1.3/angular-animate.js',
-      '../bower_components/angular-mocks-1.3/angular-mocks.js',
+      '../bower_components/angular/angular.js',
+      '../bower_components/angular-animate/angular-animate.js',
+      '../bower_components/angular-mocks/angular-mocks.js',
       '../src/*.js',
       '*.coffee'
     ],
 
 
     // list of files to exclude
-    exclude: [
-
-    ],
+    exclude: [],
 
 
     // test results reporter to use
@@ -61,8 +60,8 @@ module.exports = function(config) {
     browsers: ['PhantomJS'],
 
     coverageReporter: {
-      type : 'html',
-      dir : 'coverage/',
+      type: 'html',
+      dir: 'coverage/',
     },
 
     preprocessors: {
@@ -78,5 +77,5 @@ module.exports = function(config) {
     // Continuous Integration mode
     // if true, it capture browsers, run tests and exit
     singleRun: false
-  });
+  } );
 };
