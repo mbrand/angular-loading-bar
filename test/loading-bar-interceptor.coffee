@@ -7,6 +7,15 @@ isLoadingBarInjected = (doc) ->
       break
   return injected
 
+isSpinnerInjected = (doc) ->
+  injected = false
+  divs = angular.element(doc).find('div')
+  for i in divs
+    if angular.element(i).attr('id') is 'loading-bar-spinner'
+      injected = true
+      break
+  return injected
+
 describe 'loadingBarInterceptor Service', ->
 
   $http = $httpBackend = $document = $timeout = result = loadingBar = $animate = null
@@ -207,6 +216,37 @@ describe 'loadingBarInterceptor Service', ->
 
     $httpBackend.flush()
     $timeout.flush()
+
+
+  it 'shouldn\'t insert the spinner into the DOM when the config.noSpinner is true', inject (cfpLoadingBar) ->
+    $httpBackend.expectGET(endpoint).respond response
+    $httpBackend.expectGET(endpoint).respond response
+    $http.get(endpoint, {noSpinner: true})
+    $http.get(endpoint, {noSpinner: true})
+
+    $httpBackend.flush(1)
+    $timeout.flush() # flush the latencyThreshold timeout
+
+    expect(isSpinnerInjected($document.find(cfpLoadingBar.parentSelector))).toBe false
+
+    $httpBackend.flush()
+    $timeout.flush()
+
+
+  it 'should insert the spinner into the DOM when a request is sent', inject (cfpLoadingBar) ->
+    $httpBackend.expectGET(endpoint).respond response
+    $httpBackend.expectGET(endpoint).respond response
+    $http.get(endpoint)
+    $http.get(endpoint)
+
+    $httpBackend.flush(1)
+    $timeout.flush() # flush the latencyThreshold timeout
+
+    expect(isSpinnerInjected($document.find(cfpLoadingBar.parentSelector))).toBe true
+
+    $httpBackend.flush()
+    $timeout.flush()
+
 
   it 'should insert the loadingbar as the last children of the parent container', inject (cfpLoadingBar) ->
     $httpBackend.expectGET(endpoint).respond response
